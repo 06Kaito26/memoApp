@@ -9,8 +9,12 @@
         "sourceType": "module"
     },
     "rules": {
-    "no-use-before-define": 0,
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
-}
+    "indent": [
+            4,
+            "tab"
+        ],
+        "no-use-before-define": 0,
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
+    }
 }
