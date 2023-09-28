@@ -13,8 +13,8 @@
             4,
             "tab"
         ],
-        "no-use-before-define": 0,
-        "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off"
+    "no-use-before-define": 0,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
     }
 }

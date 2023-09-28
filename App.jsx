@@ -1,24 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Hello from "./src/components/Hello";
+import MemoDetaileScreen from "./src/screens/MemoDetaileScreen";
+import MemoListScreen from "./src/screens/MemoListScreen";
 
 export default function App() {
     return (
-        <View style={styles.container}>
-            <Hello bang>World</Hello>
-            <Hello bang style={{fontSize: 16}}>Small World</Hello>
-            <Text>Open up App.js to start working on your app!</Text>
-            {/* eslint-disable-next-line */}
-            <StatusBar style="auto" />
-        </View>
+        // <MemoListScreen/>
+        <MemoDetaileScreen />
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-});
