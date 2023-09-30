@@ -1,6 +1,6 @@
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 
-import AppBar from "../components/appBar";
+import AppBar from "../components/AppBar";
 import CircleBotton from "../components/CircleBotton";
 
 export default function MemoDetaileScreen() {

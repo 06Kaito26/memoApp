@@ -1,11 +1,13 @@
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { string, shape } from "prop-types";
+import { Feather } from '@expo/vector-icons';
+
 
 export default function CircleBotton(props) {
-    const {children, style} = props;
+    const {style} = props;
     return (
         <View style={[styles.circleBotton, style]}>
-            <Text style={styles.circleBottonLabel}>{children}</Text>
+            <Feather name="plus" size={24} color="white" />
         </View>
     );
 }
