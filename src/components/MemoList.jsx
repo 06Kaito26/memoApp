@@ -1,3 +1,4 @@
+import { Feather } from "@expo/vector-icons";
 import { Text, View, StyleSheet } from "react-native";
 
 export default function MemoList() {
@@ -12,7 +13,7 @@ export default function MemoList() {
                 {/* deleteButton */}
                 <View>
                     <View>
-                        <Text>X</Text>
+                        <Feather name="x" size={16} color="#B0B0B0" />
                     </View>
                 </View>
             </View>

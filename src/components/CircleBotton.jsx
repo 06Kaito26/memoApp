@@ -1,20 +1,20 @@
 import { View, StyleSheet } from "react-native";
 import { string, shape } from "prop-types";
-import { Feather } from '@expo/vector-icons';
-
+// @expo/vector-icons一覧サイト https://icons.expo.fyi/Index
+import { Feather } from "@expo/vector-icons";
 
 export default function CircleBotton(props) {
-    const {style} = props;
+    const { style, name } = props;
     return (
         <View style={[styles.circleBotton, style]}>
-            <Feather name="plus" size={24} color="white" />
+            <Feather name={name} size={32} color="white" />
         </View>
     );
 }
 
 CircleBotton.propTypes = {
-    children: string.isRequired,
     style: shape(),
+    name: string.isRequired,
 };
 
 CircleBotton.defaultProps = {

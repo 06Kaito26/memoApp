@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet } from "react-native";
-import { string, bool,shape } from "prop-types";
+import { string, bool, shape } from "prop-types";
 
 function Hello(props) {
     const { children, bang, style } = props;
