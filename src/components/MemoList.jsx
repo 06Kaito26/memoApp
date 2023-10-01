@@ -1,5 +1,6 @@
-import { Feather } from "@expo/vector-icons";
+// import { Feather } from "@expo/vector-icons";
 import { Text, View, StyleSheet } from "react-native";
+import Icon from "./icon";
 
 export default function MemoList() {
     return (
@@ -13,7 +14,9 @@ export default function MemoList() {
                 {/* deleteButton */}
                 <View>
                     <View>
-                        <Feather name="x" size={16} color="#B0B0B0" />
+                        {/* vector-iconsからアイコンを引っ張る場合はコチラ */}
+                        {/* <Feather name="x" size={16} color="#B0B0B0" /> */}
+                        <Icon name="delete" size={24} color="#B0B0B0" />
                     </View>
                 </View>
             </View>

@@ -23,7 +23,7 @@ export default function MemoDetaileScreen() {
                     ダミーテキストはダミー文書やダミー文章とも呼ばれることがあります。カタカナ語が苦手な方は「組見本」と呼ぶとよいでしょう。主に書籍やウェブページなどのデザインを作成する時によく使われます。これは正式な文章の代わりに入れて使うダミーテキストです。
                 </Text>
             </ScrollView>
-            <CircleBotton style={{ top: 160, bottom: "auto" }} name="edit-3" />
+            <CircleBotton style={{ top: 160, bottom: "auto" }} name="pencil" />
         </View>
     );
 }
