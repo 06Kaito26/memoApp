@@ -1,27 +1,29 @@
-import { View, StyleSheet } from "react-native";
-import { string, shape } from "prop-types";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { string, shape, func } from "prop-types";
 // @expo/vector-icons一覧サイト https://icons.expo.fyi/Index
 // import { Feather } from "@expo/vector-icons";
 import Icon from "./icon";
 
 export default function CircleBotton(props) {
-    const { style, name } = props;
+    const { style, name, onPress } = props;
     return (
-        <View style={[styles.circleBotton, style]}>
+        <TouchableOpacity style={[styles.circleBotton, style]} onPress={onPress}>
             {/* vector-iconsからアイコンを引っ張る場合はコチラ */}
             {/* <Feather name={name} size={32} color="white" /> */}
             <Icon name={name} size={40} color="#FFF" />
-        </View>
+        </TouchableOpacity>
     );
 }
 
 CircleBotton.propTypes = {
     style: shape(),
     name: string.isRequired,
+    onPress: func,
 };
 
 CircleBotton.defaultProps = {
     style: null,
+    onPress: null,
 };
 
 const styles = StyleSheet.create({
