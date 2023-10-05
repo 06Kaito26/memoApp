@@ -1,7 +1,9 @@
 // import { Feather } from "@expo/vector-icons";
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from "react-native";
-import Icon from "./icon";
+import {
+    Text, View, StyleSheet, TouchableOpacity, Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "./icon";
 
 export default function MemoList() {
     const navigation = useNavigation();

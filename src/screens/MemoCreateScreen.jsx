@@ -1,4 +1,6 @@
-import { StyleSheet, TextInput, View, KeyboardAvoidingView } from "react-native";
+import {
+    StyleSheet, TextInput, View, KeyboardAvoidingView,
+} from "react-native";
 import CircleBotton from "../components/CircleBotton";
 
 export default function MemoCreateScreen(props) {
