@@ -1,4 +1,6 @@
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+    Alert, StyleSheet, Text, TextInput, TouchableOpacity, View,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import Button from "../components/Button";
