@@ -17,7 +17,6 @@ export default function SignUpScreen(props) {
     const auth = getAuth();
 
     const handlePress = () => {
-        // getAuth();
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // 登録成功時の処理

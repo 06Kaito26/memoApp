@@ -35,15 +35,12 @@ initializeAuth(app, {
     persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
-// export const database = getFirestore(app);
-// export const storage = getStorage(app);
-
 export default function App() {
     return (
         // ナビゲーション実装 https://reactnavigation.org/docs/5.x/hello-react-navigation#creating-a-stack-navigator
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName="SignUp"
+                initialRouteName="LogIn"
                 screenOptions={{
                     headerStyle: { backgroundColor: "#467fd3" },
                     headerTitleStyle: { color: "#fff" },
