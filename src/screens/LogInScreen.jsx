@@ -1,8 +1,6 @@
-import {
-    Alert, StyleSheet, Text, TextInput, TouchableOpacity, View,
-} from "react-native";
-import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import Button from "../components/Button";
 
 export default function LogInScreen(props) {
@@ -10,6 +8,21 @@ export default function LogInScreen(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const auth = getAuth();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            // ユーザがログイン済みの場合"MemoList"へ遷移
+            if (user) {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: "MemoList" }],
+                });
+            }
+        });
+
+        // useEffect内で監視解除関数を返す
+        return unsubscribe;
+    }, []); // 空の配列を指定して初回のみ実行されるように
 
     const handlePress = () => {
         signInWithEmailAndPassword(auth, email, password)
