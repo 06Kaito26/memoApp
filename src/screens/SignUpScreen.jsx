@@ -1,13 +1,40 @@
 import {
-    StyleSheet, Text, TextInput, TouchableOpacity, View,
+    Alert, StyleSheet, Text, TextInput, TouchableOpacity, View,
 } from "react-native";
 import { useState } from "react";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    // GoogleAuthProvider,
+    // signInWithPopup,
+} from "firebase/auth";
 import Button from "../components/Button";
 
 export default function SignUpScreen(props) {
     const { navigation } = props;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const auth = getAuth();
+
+    const handlePress = () => {
+        // getAuth();
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // 登録成功時の処理
+                const { user } = userCredential;
+                console.log("ユーザーが登録されました:", user.uid);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: "MemoList" }],
+                });
+            })
+            .catch((error) => {
+                // 登録エラー時の処理
+                console.log("ユーザーの登録に失敗しました:", error.code, error.message);
+                Alert.alert("ユーザーの登録に失敗しました:", error.code);
+            });
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.inner}>
@@ -35,15 +62,7 @@ export default function SignUpScreen(props) {
                     secureTextEntry
                     textContentType="password"
                 />
-                <Button
-                    label="Submit"
-                    onPress={() => {
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: "MemoList" }],
-                        });
-                    }}
-                />
+                <Button label="Submit" onPress={handlePress} />
                 <View style={styles.footer}>
                     <Text style={styles.footerText}>Already registered?</Text>
                     <TouchableOpacity
