@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 export default function Button(props) {
     const { label, onPress } = props;
     return (
-        <TouchableOpacity style={styles.bottonContainer} onPress={onPress}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
             <Text style={styles.buttonLabel}>{label}</Text>
         </TouchableOpacity>
     );
@@ -19,7 +19,7 @@ Button.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-    bottonContainer: {
+    buttonContainer: {
         backgroundColor: "#467fd3",
         borderRadius: 4,
         alignSelf: "flex-start",

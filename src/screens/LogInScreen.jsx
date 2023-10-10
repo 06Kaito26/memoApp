@@ -15,6 +15,7 @@ export default function LogInScreen(props) {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             // ユーザがログイン済みの場合"MemoList"へ遷移
             if (user) {
+                console.log("ユーザー : ", auth.currentUser.uid);
                 navigation.reset({
                     index: 0,
                     routes: [{ name: "MemoList" }],

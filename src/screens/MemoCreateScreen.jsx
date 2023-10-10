@@ -1,15 +1,13 @@
 import {
-    StyleSheet,
-    TextInput,
-    View,
-    KeyboardAvoidingView,
-    Platform,
+    StyleSheet, TextInput, View, KeyboardAvoidingView, Platform,
 } from "react-native";
+// import { StyleSheet, TextInput, View } from "react-native";
 import { collection, addDoc } from "firebase/firestore";
 import { useState } from "react";
 
-import CircleBotton from "../components/CircleBotton";
-import { auth, db } from "../../firebase"; // authは使わないので削除
+// import KeyboardAvoidingView from "../components/KeyboardAvoidingView";
+import CircleButton from "../components/CircleButton";
+import { auth, db } from "../../firebase";
 
 export default function MemoCreateScreen(props) {
     const { navigation } = props;
@@ -31,6 +29,7 @@ export default function MemoCreateScreen(props) {
     };
 
     return (
+        // <KeyboardAvoidingView style={styles.container}>
         <KeyboardAvoidingView
             style={styles.container}
             behavior={Platform.OS === "ios" ? "height" : null}
@@ -46,7 +45,7 @@ export default function MemoCreateScreen(props) {
                     autoFocus
                 />
             </View>
-            <CircleBotton name="check" onPress={handlePress} />
+            <CircleButton name="check" onPress={handlePress} />
         </KeyboardAvoidingView>
     );
 }

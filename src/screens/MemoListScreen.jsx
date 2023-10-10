@@ -1,12 +1,18 @@
 import { View, StyleSheet } from "react-native";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+    collection, onSnapshot, orderBy, query,
+} from "firebase/firestore";
 
 import MemoList from "../components/MemoList";
-import CircleBotton from "../components/CircleBotton";
+import CircleButton from "../components/CircleButton";
 import LogOutButton from "../components/LogOutButton";
+import { auth, db } from "../../firebase";
 
 export default function MemoListScreen(props) {
+    const [memos, setMemos] = useState([]);
     const { navigation } = props;
+
     useEffect(() => {
         navigation.setOptions({
             // eslint-disable-next-line react/no-unstable-nested-components
@@ -14,10 +20,36 @@ export default function MemoListScreen(props) {
         });
     }, []);
 
+    useEffect(() => {
+        if (!auth.currentUser) {
+            return;
+        }
+        const ref = collection(db, `users/${auth.currentUser.uid}/memos`);
+        const q = query(ref, orderBy("updatedAt", "desc"));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const remoteMemos = [];
+            snapshot.forEach((doc) => {
+                console.log("memoId :", doc.data());
+                const { bodyText, updatedAt } = doc.data();
+                remoteMemos.push({
+                    id: doc.id,
+                    bodyText,
+                    updatedAt: updatedAt.toDate(),
+                });
+            });
+            setMemos(remoteMemos);
+        });
+        // クリーンアップ関数を返す
+        // eslint-disable-next-line consistent-return
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
     return (
         <View style={styles.container}>
-            <MemoList />
-            <CircleBotton
+            <MemoList memos={memos} />
+            <CircleButton // CircleButton -> CircleButton に修正
                 name="plus"
                 onPress={() => {
                     navigation.navigate("MemoCreate");

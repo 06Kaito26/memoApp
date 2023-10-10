@@ -1,7 +1,7 @@
 // eslint-disable-next-line object-curly-newline
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 
-import CircleBotton from "../components/CircleBotton";
+import CircleButton from "../components/CircleButton";
 
 export default function MemoDetaileScreen(props) {
     const { navigation } = props;
@@ -22,7 +22,7 @@ export default function MemoDetaileScreen(props) {
                     ダミーテキストはダミー文書やダミー文章とも呼ばれることがあります。カタカナ語が苦手な方は「組見本」と呼ぶとよいでしょう。主に書籍やウェブページなどのデザインを作成する時によく使われます。これは正式な文章の代わりに入れて使うダミーテキストです。
                 </Text>
             </ScrollView>
-            <CircleBotton
+            <CircleButton
                 style={{ top: 60, bottom: "auto" }}
                 name="pencil"
                 onPress={() => {

@@ -4,10 +4,10 @@ import { string, shape, func } from "prop-types";
 // import { Feather } from "@expo/vector-icons";
 import Icon from "./icon";
 
-export default function CircleBotton(props) {
+export default function CircleButton(props) {
     const { style, name, onPress } = props;
     return (
-        <TouchableOpacity style={[styles.circleBotton, style]} onPress={onPress}>
+        <TouchableOpacity style={[styles.circleButton, style]} onPress={onPress}>
             {/* vector-iconsからアイコンを引っ張る場合はコチラ */}
             {/* <Feather name={name} size={32} color="white" /> */}
             <Icon name={name} size={40} color="#FFF" />
@@ -15,19 +15,19 @@ export default function CircleBotton(props) {
     );
 }
 
-CircleBotton.propTypes = {
+CircleButton.propTypes = {
     style: shape(),
     name: string.isRequired,
     onPress: func,
 };
 
-CircleBotton.defaultProps = {
+CircleButton.defaultProps = {
     style: null,
     onPress: null,
 };
 
 const styles = StyleSheet.create({
-    circleBotton: {
+    circleButton: {
         backgroundColor: "#467FD3",
         width: 64,
         height: 64,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         // elevationはAndroidのみ対応
         elevation: 8,
     },
-    circleBottonLabel: {
+    circleButtonLabel: {
         color: "#fff",
         fontSize: 40,
         lineHeight: 40,
