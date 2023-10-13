@@ -1,26 +1,56 @@
-// eslint-disable-next-line object-curly-newline
-import { View, ScrollView, Text, StyleSheet } from "react-native";
+import {
+    View, ScrollView, Text, StyleSheet,
+} from "react-native";
+import { shape, string } from "prop-types";
+import { useEffect, useState } from "react";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 
 import CircleButton from "../components/CircleButton";
+import { auth, db } from "../../firebase";
+import { dateToString } from "../utils";
 
 export default function MemoDetaileScreen(props) {
-    const { navigation } = props;
+    const { navigation, route } = props;
+    const { id } = route.params;
+    const [memo, setMemo] = useState(null);
+
+    useEffect(() => {
+        if (!auth.currentUser) {
+            return;
+        }
+        const ref = doc(collection(db, `users/${auth.currentUser.uid}/memos`), id);
+        console.log("参照先 : ", JSON.stringify(`users/${auth.currentUser.uid}/memos`));
+        console.log("ID : ", id);
+        const unsubscribe = onSnapshot(ref, (document) => {
+            if (document.exists()) {
+                const data = document.data();
+                setMemo({
+                    id: document.id,
+                    bodyText: data.bodyText,
+                    updatedAt: data.updatedAt.toDate(),
+                });
+                console.log(document.id, document.data());
+            } else {
+                console.log("ドキュメントが存在しません");
+            }
+        });
+
+        // eslint-disable-next-line consistent-return
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
     return (
         <View style={styles.container}>
             <View style={styles.memoHeader}>
-                <Text style={styles.memoTitle}>買い物リスト</Text>
-                <Text style={styles.memoDate}>2023/09/28 11:42</Text>
+                <Text style={styles.memoTitle} numberOfLines={1}>
+                    {memo && memo.bodyText}
+                </Text>
+                <Text style={styles.memoDate}>{memo && dateToString(memo.updatedAt)}</Text>
             </View>
             <ScrollView style={styles.memoBody}>
-                <Text style={styles.memoText}>
-                    {/* eslint-disable-next-line max-len */}
-                    買い物リスト
-                    書体やレイアウトなどを確認するために用います。本文用なので使い方を間違えると不自然に見えることもありますので要注意。
-                    {/* eslint-disable-next-line max-len */}
-                    カタカナ語が苦手な方は「組見本」と呼ぶとよいでしょう。なお、組見本の「組」とは文字組のことです。活字印刷時代の用語だったと思います。このダミーテキストは自由に改変することが出来ます。主に書籍やウェブページなどのデザインを作成する時によく使われます。書体やレイアウトなどを確認するために用います。
-                    {/* eslint-disable-next-line max-len */}
-                    ダミーテキストはダミー文書やダミー文章とも呼ばれることがあります。カタカナ語が苦手な方は「組見本」と呼ぶとよいでしょう。主に書籍やウェブページなどのデザインを作成する時によく使われます。これは正式な文章の代わりに入れて使うダミーテキストです。
-                </Text>
+                <Text style={styles.memoText}>{memo && memo.bodyText}</Text>
             </ScrollView>
             <CircleButton
                 style={{ top: 60, bottom: "auto" }}
@@ -32,6 +62,12 @@ export default function MemoDetaileScreen(props) {
         </View>
     );
 }
+
+MemoDetaileScreen.propTypes = {
+    route: shape({
+        params: shape({ id: string }),
+    }).isRequired,
+};
 
 const styles = StyleSheet.create({
     container: {

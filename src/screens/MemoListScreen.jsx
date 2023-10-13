@@ -1,13 +1,11 @@
 import { View, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
-import {
-    collection, onSnapshot, orderBy, query,
-} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 import MemoList from "../components/MemoList";
 import CircleButton from "../components/CircleButton";
 import LogOutButton from "../components/LogOutButton";
-import { auth, db } from "../../firebase";
+import { db, auth } from "../../firebase";
 
 export default function MemoListScreen(props) {
     const [memos, setMemos] = useState([]);
@@ -24,12 +22,13 @@ export default function MemoListScreen(props) {
         if (!auth.currentUser) {
             return;
         }
+        // console.log("メモリスト参照先 : ", `users/${auth.currentUser.uid}/memos`);
         const ref = collection(db, `users/${auth.currentUser.uid}/memos`);
         const q = query(ref, orderBy("updatedAt", "desc"));
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const remoteMemos = [];
             snapshot.forEach((doc) => {
-                console.log("memoId :", doc.data());
+                // console.log("メモリスト :", doc.data());
                 const { bodyText, updatedAt } = doc.data();
                 remoteMemos.push({
                     id: doc.id,
