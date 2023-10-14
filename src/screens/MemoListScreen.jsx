@@ -1,6 +1,8 @@
 import { View, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+    collection, onSnapshot, orderBy, query,
+} from "firebase/firestore";
 
 import MemoList from "../components/MemoList";
 import CircleButton from "../components/CircleButton";
@@ -48,7 +50,7 @@ export default function MemoListScreen(props) {
     return (
         <View style={styles.container}>
             <MemoList memos={memos} />
-            <CircleButton // CircleButton -> CircleButton に修正
+            <CircleButton
                 name="plus"
                 onPress={() => {
                     navigation.navigate("MemoCreate");
