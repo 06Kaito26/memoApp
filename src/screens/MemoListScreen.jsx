@@ -1,4 +1,6 @@
-import { View, StyleSheet, Text } from "react-native";
+import {
+    View, StyleSheet, Text, Alert,
+} from "react-native";
 import { useEffect, useState } from "react";
 import {
     collection, onSnapshot, orderBy, query,
@@ -7,12 +9,14 @@ import {
 import MemoList from "../components/MemoList";
 import CircleButton from "../components/CircleButton";
 import LogOutButton from "../components/LogOutButton";
-import { db, auth } from "../../firebase";
 import Button from "../components/Button";
+import Loading from "../components/Loading";
+import { db, auth } from "../../firebase";
 
 export default function MemoListScreen(props) {
     const { navigation } = props;
     const [memos, setMemos] = useState([]);
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
         navigation.setOptions({
@@ -25,22 +29,32 @@ export default function MemoListScreen(props) {
         if (!auth.currentUser) {
             return;
         }
+        setLoading(true);
         // console.log("メモリスト参照先 : ", `users/${auth.currentUser.uid}/memos`);
         const ref = collection(db, `users/${auth.currentUser.uid}/memos`);
         const q = query(ref, orderBy("updatedAt", "desc"));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const remoteMemos = [];
-            snapshot.forEach((doc) => {
-                // console.log("メモリスト :", doc.data());
-                const { bodyText, updatedAt } = doc.data();
-                remoteMemos.push({
-                    id: doc.id,
-                    bodyText,
-                    updatedAt: updatedAt.toDate(),
+        const unsubscribe = onSnapshot(
+            q,
+            (snapshot) => {
+                const remoteMemos = [];
+                snapshot.forEach((doc) => {
+                    // console.log("メモリスト :", doc.data());
+                    const { bodyText, updatedAt } = doc.data();
+                    remoteMemos.push({
+                        id: doc.id,
+                        bodyText,
+                        updatedAt: updatedAt.toDate(),
+                    });
                 });
-            });
-            setMemos(remoteMemos);
-        });
+                setMemos(remoteMemos);
+                setLoading(false);
+            },
+            (error) => {
+                console.error("データの取得に失敗しました", error);
+                Alert.alert("データの取得に失敗しました:", error);
+                setLoading(false);
+            },
+        );
         // クリーンアップ関数を返す
         // eslint-disable-next-line consistent-return
         return () => {
@@ -52,6 +66,7 @@ export default function MemoListScreen(props) {
     if (!memos.length) {
         return (
             <View style={emptyStyles.container}>
+                <Loading isLoading={isLoading} />
                 <View style={emptyStyles.inner}>
                     <Text style={emptyStyles.title}>Let&apos;s create your first memo!</Text>
                     <Button

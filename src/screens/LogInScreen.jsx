@@ -4,11 +4,13 @@ import {
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import Button from "../components/Button";
+import Loading from "../components/Loading";
 
 export default function LogInScreen(props) {
     const { navigation } = props;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setLoading] = useState(true);
     const auth = getAuth();
 
     useEffect(() => {
@@ -20,6 +22,8 @@ export default function LogInScreen(props) {
                     index: 0,
                     routes: [{ name: "MemoList" }],
                 });
+            } else {
+                setLoading(false);
             }
         });
 
@@ -28,6 +32,7 @@ export default function LogInScreen(props) {
     }, []); // 空の配列を指定して初回のみ実行されるように
 
     const handlePress = () => {
+        setLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // ログイン成功時の処理
@@ -42,11 +47,15 @@ export default function LogInScreen(props) {
                 // ログイン失敗時の処理
                 console.log("ログインに失敗しました:", error.code, error.message);
                 Alert.alert("ログインに失敗しました:", error.code);
+            })
+            .then(() => {
+                setLoading(false);
             });
     };
 
     return (
         <View style={styles.container}>
+            <Loading isLoading={isLoading} />
             <View style={styles.inner}>
                 <Text style={styles.title}>Log In</Text>
                 <TextInput
