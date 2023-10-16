@@ -54,6 +54,9 @@ export function translateErrors(code) {
         case "auth/missing-password":
             error.description = "パスワードが設定されていません";
             break;
+        case "permission-denied":
+            error.description = "データの取得に失敗しました";
+            break;
         default:
     }
     return error;

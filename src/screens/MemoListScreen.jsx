@@ -12,6 +12,7 @@ import LogOutButton from "../components/LogOutButton";
 import Button from "../components/Button";
 import Loading from "../components/Loading";
 import { db, auth } from "../../firebase";
+import { translateErrors } from "../utils";
 
 export default function MemoListScreen(props) {
     const { navigation } = props;
@@ -50,8 +51,9 @@ export default function MemoListScreen(props) {
                 setLoading(false);
             },
             (error) => {
-                console.error("データの取得に失敗しました", error);
-                Alert.alert("データの取得に失敗しました:", error);
+                const errorMsg = translateErrors(error.code);
+                Alert.alert(errorMsg.title, errorMsg.description);
+                console.log(errorMsg.description, error.code);
                 setLoading(false);
             },
         );
