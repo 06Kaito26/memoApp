@@ -18,7 +18,7 @@ export default function LogInScreen(props) {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             // ユーザがログイン済みの場合"MemoList"へ遷移
             if (user) {
-                console.log("ログインユーザー : ", auth.currentUser.uid);
+                // console.log("ログインユーザー : ", auth.currentUser.uid);
                 navigation.reset({
                     index: 0,
                     routes: [{ name: "MemoList" }],
@@ -35,10 +35,11 @@ export default function LogInScreen(props) {
     const handlePress = () => {
         setLoading(true);
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            // .then((userCredential) => {
+            .then(() => {
                 // ログイン成功時の処理
-                const { user } = userCredential;
-                console.log("ログインに成功しました：", user.uid);
+                // const { user } = userCredential;
+                // console.log("ログインに成功しました：", user.uid);
                 navigation.reset({
                     index: 0,
                     routes: [{ name: "MemoList" }],
@@ -48,7 +49,7 @@ export default function LogInScreen(props) {
                 // ログイン失敗時の処理
                 const errorMsg = translateErrors(error.code);
                 Alert.alert(errorMsg.title, errorMsg.description);
-                console.log(errorMsg.description, error.code);
+                // console.log(errorMsg.description, error.code);
             })
             .then(() => {
                 setLoading(false);

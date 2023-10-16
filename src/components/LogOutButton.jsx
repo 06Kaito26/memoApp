@@ -11,7 +11,7 @@ export default function LogOutButton() {
     const handlePress = () => {
         signOut(auth)
             .then(() => {
-                console.log("ログアウトに成功しました");
+                // console.log("ログアウトに成功しました");
                 navigation.reset({
                     index: 0,
                     routes: [{ name: "LogIn" }],

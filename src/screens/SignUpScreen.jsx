@@ -19,10 +19,11 @@ export default function SignUpScreen(props) {
 
     const handlePress = () => {
         createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            // .then((userCredential) => {
+            .then(() => {
                 // 登録成功時の処理
-                const { user } = userCredential;
-                console.log("ユーザーが登録されました:", user.uid);
+                // const { user } = userCredential;
+                // console.log("ユーザーが登録されました:", user.uid);
                 navigation.reset({
                     index: 0,
                     routes: [{ name: "MemoList" }],
@@ -32,7 +33,7 @@ export default function SignUpScreen(props) {
                 // 登録エラー時の処理
                 const errorMsg = translateErrors(error.code);
                 Alert.alert(errorMsg.title, errorMsg.description);
-                console.log(errorMsg.description, error.code);
+                // console.log(errorMsg.description, error.code);
             });
     };
 

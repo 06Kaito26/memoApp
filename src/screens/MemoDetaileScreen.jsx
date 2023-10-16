@@ -19,8 +19,8 @@ export default function MemoDetaileScreen(props) {
             return;
         }
         const ref = doc(collection(db, `users/${auth.currentUser.uid}/memos`), id);
-        console.log("参照先 : ", JSON.stringify(`users/${auth.currentUser.uid}/memos`));
-        console.log("ID : ", id);
+        // console.log("参照先 : ", JSON.stringify(`users/${auth.currentUser.uid}/memos`));
+        // console.log("ID : ", id);
         const unsubscribe = onSnapshot(ref, (document) => {
             if (document.exists()) {
                 const data = document.data();
@@ -29,9 +29,7 @@ export default function MemoDetaileScreen(props) {
                     bodyText: data.bodyText,
                     updatedAt: data.updatedAt.toDate(),
                 });
-                console.log(document.id, document.data());
-            } else {
-                console.log("ドキュメントが存在しません");
+                // console.log(document.id, document.data());
             }
         });
 

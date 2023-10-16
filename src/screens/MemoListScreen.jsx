@@ -53,7 +53,7 @@ export default function MemoListScreen(props) {
             (error) => {
                 const errorMsg = translateErrors(error.code);
                 Alert.alert(errorMsg.title, errorMsg.description);
-                console.log(errorMsg.description, error.code);
+                // console.log(errorMsg.description, error.code);
                 setLoading(false);
             },
         );
