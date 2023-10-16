@@ -9,6 +9,7 @@ import {
     // signInWithPopup,
 } from "firebase/auth";
 import Button from "../components/Button";
+import { translateErrors } from "../utils";
 
 export default function SignUpScreen(props) {
     const { navigation } = props;
@@ -29,8 +30,9 @@ export default function SignUpScreen(props) {
             })
             .catch((error) => {
                 // 登録エラー時の処理
-                console.log("ユーザーの登録に失敗しました:", error.code, error.message);
-                Alert.alert("ユーザーの登録に失敗しました:", error.code);
+                const errorMsg = translateErrors(error.code);
+                Alert.alert(errorMsg.title, errorMsg.description);
+                console.log(errorMsg.description, error.code);
             });
     };
 

@@ -7,6 +7,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 import CircleButton from "../components/CircleButton";
 import { auth, db } from "../../firebase";
+import { translateErrors } from "../utils";
 
 export default function MemoEditScreen(props) {
     const { navigation, route } = props;
@@ -26,13 +27,15 @@ export default function MemoEditScreen(props) {
                 bodyText: body,
                 updatedAt: new Date(),
             },
-            { merge: true },
-        ) // マージオプションを指定
+            { merge: true }, // マージオプションを指定
+        )
             .then(() => {
                 navigation.goBack();
             })
             .catch((error) => {
-                Alert.alert("Error", error.message);
+                const errorMsg = translateErrors(error.code);
+                Alert.alert(errorMsg.title, errorMsg.description);
+                console.log(errorMsg.description, error.code);
             });
     };
 

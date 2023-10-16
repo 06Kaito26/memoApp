@@ -6,12 +6,40 @@ import { useNavigation } from "@react-navigation/native";
 import {
     shape, string, instanceOf, arrayOf,
 } from "prop-types";
+import { collection, deleteDoc, doc } from "firebase/firestore";
 import Icon from "./icon";
 import { dateToString } from "../utils";
+import { auth, db } from "../../firebase";
 
 export default function MemoList(props) {
     const { memos } = props;
     const navigation = useNavigation();
+
+    const deleteMemo = (id) => {
+        if (auth) {
+            const ref = doc(collection(db, `users/${auth.currentUser.uid}/memos`), id);
+            Alert.alert(
+                "選択したメモを削除しますか？",
+                "[削除]を選択すると該当のメモが削除されます",
+                [
+                    {
+                        text: "キャンセル",
+                        onPress: () => {},
+                    },
+                    {
+                        text: "削除",
+                        // スタイルはiOSのみ適用可能
+                        style: "destructive",
+                        onPress: () => {
+                            deleteDoc(ref).catch(() => {
+                                Alert.alert("削除に失敗しました");
+                            });
+                        },
+                    },
+                ],
+            );
+        }
+    };
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -31,7 +59,7 @@ export default function MemoList(props) {
                 <TouchableOpacity
                     style={styles.memoDelete}
                     onPress={() => {
-                        Alert.alert("TEST");
+                        deleteMemo(item.id);
                     }}
                 >
                     {/* vector-iconsからアイコンを引っ張る場合はコチラ */}

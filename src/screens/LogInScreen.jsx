@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import Button from "../components/Button";
 import Loading from "../components/Loading";
+import { translateErrors } from "../utils";
 
 export default function LogInScreen(props) {
     const { navigation } = props;
@@ -45,8 +46,9 @@ export default function LogInScreen(props) {
             })
             .catch((error) => {
                 // ログイン失敗時の処理
-                console.log("ログインに失敗しました:", error.code, error.message);
-                Alert.alert("ログインに失敗しました:", error.code);
+                const errorMsg = translateErrors(error.code);
+                Alert.alert(errorMsg.title, errorMsg.description);
+                console.log(errorMsg.description, error.code);
             })
             .then(() => {
                 setLoading(false);
