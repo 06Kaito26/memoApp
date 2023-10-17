@@ -1,9 +1,10 @@
 import { useState } from "react";
 import {
-    StyleSheet, TextInput, View, KeyboardAvoidingView, Alert,
+    StyleSheet, TextInput, View, Alert,
 } from "react-native";
 import { shape, string } from "prop-types";
 import { doc, setDoc } from "firebase/firestore";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import CircleButton from "../components/CircleButton";
 import { auth, db } from "../../firebase";
@@ -40,7 +41,7 @@ export default function MemoEditScreen(props) {
     };
 
     return (
-        <KeyboardAvoidingView style={styles.container} behavior="height">
+        <KeyboardAwareScrollView contentContainerStyle={styles.container}>
             <View style={styles.inputContainer}>
                 <TextInput
                     value={body}
@@ -52,7 +53,7 @@ export default function MemoEditScreen(props) {
                 />
             </View>
             <CircleButton name="check" onPress={handlePress} />
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
     );
 }
 
@@ -67,8 +68,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     inputContainer: {
-        paddingHorizontal: 27,
-        paddingVertical: 32,
         flex: 1,
     },
     input: {
@@ -77,5 +76,8 @@ const styles = StyleSheet.create({
         textAlignVertical: "top",
         fontSize: 16,
         lineHeight: 24,
+        paddingTop: 32,
+        paddingBottom: 130,
+        paddingHorizontal: 27,
     },
 });

@@ -48,7 +48,7 @@ export default function MemoList(props) {
                 navigation.navigate("MemoDetail", { id: item.id });
             }}
         >
-            <View>
+            <View style={styles.memoInner}>
                 <Text style={styles.memoListTitle} numberOfLines={1}>
                     {item.bodyText}
                 </Text>
@@ -101,6 +101,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderBottomWidth: 1,
         borderColor: "rgba(0,0,0,0.15)",
+    },
+    memoListInner: {
+        flex: 1,
     },
     memoListTitle: {
         fontSize: 16,
