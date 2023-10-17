@@ -1,11 +1,10 @@
 import {
-    StyleSheet, TextInput, View, KeyboardAvoidingView, Platform, Alert,
+    StyleSheet, TextInput, View, Alert,
 } from "react-native";
-// import { StyleSheet, TextInput, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { collection, addDoc } from "firebase/firestore";
 import { useState } from "react";
 
-// import KeyboardAvoidingView from "../components/KeyboardAvoidingView";
 import CircleButton from "../components/CircleButton";
 import { auth, db } from "../../firebase";
 import { translateErrors } from "../utils";
@@ -33,11 +32,7 @@ export default function MemoCreateScreen(props) {
     };
 
     return (
-        // <KeyboardAvoidingView style={styles.container}>
-        <KeyboardAvoidingView
-            style={styles.container}
-            behavior={Platform.OS === "ios" ? "height" : null}
-        >
+        <KeyboardAwareScrollView contentContainerStyle={styles.container}>
             <View style={styles.contentContainer}>
                 <TextInput
                     value={bodyText}
@@ -50,7 +45,7 @@ export default function MemoCreateScreen(props) {
                 />
             </View>
             <CircleButton name="check" onPress={handlePress} />
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
     );
 }
 
