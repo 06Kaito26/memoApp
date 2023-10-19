@@ -5,21 +5,26 @@
         "version": "1.0.0",
         "privacy": "unlisted",
         "orientation": "portrait",
-        "icon": "./assets/icon.png",
+        "icon": "./assets/icon_256_256.png",
         "userInterfaceStyle": "light",
         "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
+            "image": "./assets/splash_414_896.png",
+            "resizeMode": "cover",
             "backgroundColor": "#ffffff"
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": false,
+            "bundleIdentifier":"site.hotari.memoapp",
+            "buildNumber":"0.1.0"
         },
         "android": {
+            "package":"site.hotari.memoapp",
+            "versionCode":1,
+            "permissions":[],
             "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
+                "foregroundImage": "./assets/icon_adaptive_foreground.png",
+                "backgroundImage": "./assets/iconSquare_108_108.png"
             }
         },
         "web": {

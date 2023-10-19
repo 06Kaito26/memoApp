@@ -55,8 +55,6 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1, // コンテンツの高さが画面に合わせて調整される
-        paddingHorizontal: 27,
-        paddingVertical: 32,
     },
     input: {
         flex: 1,
@@ -64,5 +62,7 @@ const styles = StyleSheet.create({
         textAlignVertical: "top",
         fontSize: 16,
         lineHeight: 24,
+        paddingHorizontal: 27,
+        paddingVertical: 32,
     },
 });
