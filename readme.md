@@ -6,7 +6,7 @@
 
 ## エミュレータの起動
 
-`expo start`
+`npx expo start`
 
 expoスタート時に表示されるQRコード読み取りでexpoアプリ上で確認も可能
 
